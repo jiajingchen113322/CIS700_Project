@@ -114,6 +114,10 @@ def train_model(model,train_loader,valid_loader,exp_name,cuda_n):
     #build tensorboard
     tqdm_epoch=tqdm(range(initial_epoch,training_epoch),unit='epoch',ncols=100)
 
+    exp_root = os.path.join(cfg.proj_path, 'Experiment')
+    if not os.path.exists(exp_root):
+        os.mkdir(exp_root)
+
     #build folder for pth_file
     exp_path=os.path.join(cfg.proj_path,'Experiment',exp_name)
     if not os.path.exists(exp_path):
@@ -217,3 +221,4 @@ def run_one_epoch(model,tqdm_iter,mode,loss_func=None,optimizer=None,loss_interv
 
 if __name__=='__main__':
     main()
+    # print(os.path.dirname(os.path.abspath(__file__)) )
