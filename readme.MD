@@ -9,9 +9,16 @@ This is the repository for course CIS 700 Deeplearning Theorem Proving's term pr
 
 ## Dependencies
 * pytorch 
-
+* cuda
+* tensorboard
+* PyYAML
+* numpy
+* tqdm
 ## Usage
-
+If a virtual environment is used for installing packages, then after activating the virtual environment, run the following command:
+```commandline
+python main.py
+```
 ## Acknowledgement 
 The model and data used in this repository is based on [this](https://github.com/chingyaoc/ggnn.pytorch) repository. The original bAbI project can be found [here](https://github.com/facebookarchive/bAbI-tasks).
 
