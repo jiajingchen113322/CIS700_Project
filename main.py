@@ -17,7 +17,7 @@ def get_arg():
     cfg.add_argument('--exp_name',default='default')
     cfg.add_argument('--epochs',default=50)
     cfg.add_argument('--train',action='store_true',default=True)
-    cfg.add_argument('--data_path',default='babi_data\processed_1/train/15_graphs.txt')
+    cfg.add_argument('--data_path',default='babi_data/processed_1/train/15_graphs.txt')
     cfg.add_argument('--batch_size',default=15)
     cfg.add_argument('--lr',default=0.01)
     cfg.add_argument('--device',default='cuda')
@@ -32,7 +32,7 @@ def get_arg():
     # =======================
     
     # ==== prject path ====
-    cfg.add_argument('--proj_path',default='D:\Courses/2022 Spring\Theorem Proving\Final_project\My_Project')
+    cfg.add_argument('--proj_path', default=os.path.dirname(os.path.abspath(__file__)))
     # =====================
 
     return cfg.parse_args()
