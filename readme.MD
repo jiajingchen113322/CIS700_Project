@@ -24,7 +24,7 @@ Several options can be applied to this command. The options are list as followin
 
 * `--exp_name`: Name of the experiment. A directory within `Experiment` will be created with this name to record the training logs. Default: `default`.
 * `--epochs`: Number of training epochs. Default: `50`.
-* `--train`: Flag for training. Default True
+* `--train`: Flag for training. Default `True`
 * `--data_path`: Path for the data. Default: `babi_data/processed_1/train/15_graphs.txt`
   * Depend on the OS that you are using, this option may need corresponding adjustment.
 * `--batch_size`: Batch size. Default: `15`
@@ -36,7 +36,8 @@ Several options can be applied to this command. The options are list as followin
 * `--annotation_dim`: Annotation dimension. Default: `1`
 * `--edge_type`: Types of edges in the graph. Default: `2`
 * `--n_nodes`: Default: `8`
-* `--n_step`: Number of time that propagation is done. Default: `5`
+* `--n_step`: Number of time that propagation is done. Default: `5`\
+
 For viewing training curve after training, please execute this command in the project's root directory.
 ```commandline
 tensorboard --logdir Experiment
