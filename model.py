@@ -15,6 +15,26 @@ class AttrProxy(object):
         return getattr(self.module, self.prefix + str(i))
 
 
+class SimpleAttention(nn.Module):
+    def __init__(self, edge_types, node_count, state_dim):
+        super(SimpleAttention, self).__init__()
+        self.feedforward = nn.Linear(state_dim, state_dim)
+        self.softmax = nn.Softmax()
+
+    def forward(self, A, state):
+        attention_out = self.feedforward(state)
+        sf_out = self.softmax(attention_out)
+        sf_out = sf_out * state
+        return torch.bmm(A, sf_out)
+
+        # flatten = torch.flatten(encoded)
+        # mp_out = self.feedforward(flatten)
+        # mp_out = torch.reshape(mp_out, (self.node_count, self.state_dim))
+        # sf_out = self.softmax(mp_out)
+        # ele_mult_out = encoded * sf_out
+        # return torch.sum(ele_mult_out, dim=1)
+
+
 class Propogator(nn.Module):
     """
     Gated Propogator for GGNN
@@ -39,12 +59,17 @@ class Propogator(nn.Module):
             nn.Tanh()
         )
 
+        self.attention_in = SimpleAttention(n_edge_types, n_node, state_dim)
+        self.attention_out = SimpleAttention(n_edge_types, n_node, state_dim)
+
     def forward(self, state_in, state_out, state_cur, A):
         A_in = A[:, :, :self.n_node*self.n_edge_types]
         A_out = A[:, :, self.n_node*self.n_edge_types:]
 
-        a_in = torch.bmm(A_in, state_in)
-        a_out = torch.bmm(A_out, state_out)
+        # a_in = torch.bmm(A_in, state_in)
+        # a_out = torch.bmm(A_out, state_out)
+        a_in = self.attention_in(A_in, state_in)
+        a_out = self.attention_out(A_out, state_out)
         a = torch.cat((a_in, a_out, state_cur), 2)
 
         r = self.reset_gate(a)

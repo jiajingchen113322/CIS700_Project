@@ -20,7 +20,7 @@ def get_arg():
     cfg.add_argument('--data_path',default='babi_data/processed_1/train/15_graphs.txt')
     cfg.add_argument('--batch_size',default=15)
     cfg.add_argument('--lr',default=0.01)
-    cfg.add_argument('--device',default='cuda')
+    cfg.add_argument('--device',default='cpu')
     cfg.add_argument('--opt',default='adam')
     
     # ==== model config =====
@@ -71,7 +71,7 @@ def test(model,data_loader,pth_folder):
 
 
 def train_model(model,train_loader,valid_loader,exp_name,cuda_n):
-    assert torch.cuda.is_available()
+    # assert torch.cuda.is_available()
     epoch_acc=[]
     model=model.to(cfg.device)
 
@@ -221,4 +221,3 @@ def run_one_epoch(model,tqdm_iter,mode,loss_func=None,optimizer=None,loss_interv
 
 if __name__=='__main__':
     main()
-    # print(os.path.dirname(os.path.abspath(__file__)) )
