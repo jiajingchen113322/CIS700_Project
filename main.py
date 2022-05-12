@@ -1,6 +1,5 @@
 import numpy as np
 import torch
-from model import GGNN
 from dataloader import gestsets
 
 import torch.nn as nn
@@ -14,17 +13,18 @@ import yaml
 # ============== Get Configuration =================
 def get_arg():
     cfg=argparse.ArgumentParser()
-    cfg.add_argument('--exp_name',default='default')
-    cfg.add_argument('--epochs',default=50)
+    cfg.add_argument('--exp_name',default='dim_16_attention')
+    cfg.add_argument('--epochs',default=20)
     cfg.add_argument('--train',action='store_true',default=True)
     cfg.add_argument('--data_path',default='babi_data\processed_2/train/15_graphs.txt')
     cfg.add_argument('--batch_size',default=15)
     cfg.add_argument('--lr',default=0.01)
-    cfg.add_argument('--device',default='cuda')
-    cfg.add_argument('--opt',default='adam')
+    cfg.add_argument('--device',default='cpu')
+    cfg.add_argument('--opt',default='adam'),
+    cfg.add_argument('--attention',default=True,action='store_true')
     
     # ==== model config =====
-    cfg.add_argument('--state_dim',default=4)
+    cfg.add_argument('--state_dim',default=16)
     cfg.add_argument('--annotation_dim',default=1)
     cfg.add_argument('--edge_type',default=2)
     cfg.add_argument('--n_node',default=8)
@@ -39,8 +39,10 @@ def get_arg():
 
 cfg=get_arg()
 
-
-
+if cfg.attention:
+    from model_attention import GGNN
+else:
+    from model import GGNN
 
 def main():
     seed=0

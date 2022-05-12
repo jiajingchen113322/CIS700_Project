@@ -1,14 +1,15 @@
 annotation_dim: 1
+attention: true
 batch_size: 15
 data_path: babi_data\processed_2/train/15_graphs.txt
-device: cuda
+device: cpu
 edge_type: 2
 epochs: 20
-exp_name: default
+exp_name: dim_8_attention
 lr: 0.01
 n_node: 8
 n_step: 5
 opt: adam
 proj_path: D:\Courses/2022 Spring\Theorem Proving\Final_project\My_Project
-state_dim: 4
+state_dim: 8
 train: true
